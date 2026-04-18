@@ -1,18 +1,18 @@
 # Information Retrieval System
 
-A document retrieval system supporting English and Czech, with two runs: a baseline (run-0) and an improved approach using BM25 + Pseudo-Relevance Feedback (run-1).
+This repository is an implementation of the first assignment in the Information Retrieval course (NPFL103). 
+The system supports English and Czech, with two runs: a baseline (run-0) and an improved approach using BM25 + Pseudo-Relevance Feedback (run-1). 
 
 ---
 
-## Setup
+## 🛠️ Setup
 
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/OriMoscovitz/Information-Retrieval-Assignment-1.git
+cd Information-Retrieval-Assignment-1
 ```
-
 ### 2. Install dependencies
 
 ```bash
@@ -45,9 +45,9 @@ outputs/                   # Results are written here
 
 ---
 
-## Running the System
+## ▶️ Running the System
 
-### Run-0 — Baseline (whitespace tokenization, no preprocessing)
+### Run-0: Baseline (whitespace tokenization, no preprocessing)
 
 **English**
 ```bash
@@ -63,7 +63,7 @@ py run.py -q topics-test_cs.xml  -d documents_cs.lst -r 0 -o run-0_test_cs.res
 
 ---
 
-### Run-1 — Final Approach (BM25 + PRF + Lemmatization)
+### Run-1: Final Approach (BM25 + PRF + Lemmatization)
 
 **English**
 ```bash
@@ -79,7 +79,7 @@ py run.py -q topics-test_cs.xml  -d documents_cs.lst -r 1 -o run-1_test_cs.res
 
 ---
 
-## Reproducing Intermediate Experiments
+## 🧪 Reproducing Intermediate Experiments
 
 The run-1 pipeline went through several iterations. To reproduce intermediate steps, manual code changes are needed as described below.
 
@@ -128,7 +128,7 @@ if run != 0:
 
 ---
 
-## Evaluation & Plots
+## 📊 Evaluation & Plots
 
 To evaluate runs against training qrels and generate MAP / P@10 plots, run:
 
@@ -167,13 +167,13 @@ This reads all `.res` files from `outputs/` and produces `results_english.png` a
 
 ---
 
-## System Overview
+## 🗂️ System Overview
 
-| Component | Description |
-|---|---|
-| `run.py` | Entry point — parses CLI arguments and dispatches to `utils.run()` |
-| `utils.py` | Orchestrates document loading, vectorization, query construction, PRF, and result writing |
-| `file_handler.py` | Document parsing, tokenization, stopword removal, stemming, lemmatization |
-| `eval_handler.py` | BM25 / TF-IDF vector computation, cosine similarity, ranking, PRF |
-| `xml_handler.py` | XML cleaning and extraction utilities |
-| `plot_handler.py` | Calls `trec_eval` and plots MAP / P@10 across runs |
+| Component | Description                                                                  |
+|---|------------------------------------------------------------------------------|
+| `run.py` | Entry point: parses CLI arguments and dispatches to `utils.run()`            |
+| `utils.py` | Document loading, vectorization, query construction, PRF, and result writing |
+| `file_handler.py` | Document parsing, tokenization, stopword removal, stemming, lemmatization    |
+| `eval_handler.py` | BM25 / TF-IDF vector computation, cosine similarity, ranking, PRF            |
+| `xml_handler.py` | XML cleaning and extraction utilities                                        |
+| `plot_handler.py` | Calls `trec_eval` and plots MAP / P_10 across runs                           |

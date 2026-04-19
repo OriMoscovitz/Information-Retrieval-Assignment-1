@@ -3,20 +3,17 @@ from collections import Counter
 
 
 def pseudo_relevance_feedback(query_vec, bm25_dict, top_k=10, top_terms=20):
-    """
-    First-pass retrieval → expand query with top terms from top-K docs.
-    """
-    # First pass ranking for ONE query
+    # first pass: expand query with top terms from top-k docs
     initial_results = rank_documents_for_query(query_vec, bm25_dict)
     top_docs = [docno for docno, _ in initial_results[:top_k]]
 
-    # Collect term weights from top docs
+    # collect term weights from top docs
     term_scores = Counter()
     for docno in top_docs:
         for term, weight in bm25_dict[docno].items():
             term_scores[term] += weight
 
-    # Add top new terms to query
+    # add top new terms to query
     expansion_terms = [
         t for t, _ in term_scores.most_common(top_terms + len(query_vec))
         if t not in query_vec
@@ -70,7 +67,7 @@ def compute_tfidf_vectors(docs_dict):
     # document frequency for each term
     df = Counter()
     for tokens in docs_dict.values():
-        for term in set(tokens):  # set() so each term counted once per doc
+        for term in set(tokens):
             df[term] += 1
 
     # TF-IDF - log-normalized TF * IDF

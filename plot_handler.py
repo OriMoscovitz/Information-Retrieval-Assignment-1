@@ -1,3 +1,4 @@
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -5,7 +6,57 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 
-def plot_run_results(results: dict, lang: str) -> None:
+def plot_iprec_curves(run):
+    english_file = os.path.join(os.getcwd(), "outputs",f"run-{run}-trec-en.txt")
+    czech_file = os.path.join(os.getcwd(), "outputs",f"run-{run}-trec-cs.txt")
+
+    recall_levels = [i / 10 for i in range(11)]
+
+    def read_iprec_file(filepath):
+        iprec = {}
+
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) < 3:
+                    continue
+
+                metric, _, value = parts[0], parts[1], parts[2]
+
+                match = re.match(r"iprec_at_recall_(\d+\.\d+)", metric)
+                if match:
+                    recall = float(match.group(1))
+                    iprec[recall] = float(value)
+
+        missing = [r for r in recall_levels if r not in iprec]
+        if missing:
+            raise ValueError(
+                f"Missing recall levels in {filepath}: {missing}"
+            )
+
+        return [iprec[r] for r in recall_levels]
+
+    english_precision = read_iprec_file(english_file)
+    czech_precision = read_iprec_file(czech_file)
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(recall_levels, english_precision, marker="o", label="English")
+    plt.plot(recall_levels, czech_precision, marker="s", label="Czech")
+
+    plt.xlabel("Recall")
+    plt.ylabel("Interpolated Precision")
+    plt.title(f"11-point Precision-Recall Curve ({run})")
+    plt.xticks(recall_levels)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+
+    plt.savefig(f"11P_AP_results_{run}.png")
+
+    # plt.show()
+
+
+def plot_run_results(results, lang):
     language = "english" if lang == "en" else "czech"
 
     steps = sorted(int(run_name.split("-")[1]) for run_name in results)
@@ -96,7 +147,17 @@ def evaluate_and_plot_runs(lang, outputs_dir="outputs", qrels_dir="A1",
             "P_10": p10_score,
         }
 
+    print(f"--------- Results for {lang} ---------")
+    for step in sorted(results.keys()):
+        print(f"{step}: map={results[step]["map"]}, P_10={results[step]["P_10"]}")
+
+
     plot_run_results(results, lang)
 
 evaluate_and_plot_runs("cs")
 evaluate_and_plot_runs("en")
+
+plot_iprec_curves(0)
+plot_iprec_curves(1)
+
+

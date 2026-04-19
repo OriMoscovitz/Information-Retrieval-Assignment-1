@@ -130,7 +130,7 @@ if run != 0:
 
 ## 📊 Evaluation & Plots
 
-To evaluate runs against training qrels and generate MAP / P@10 plots, run:
+To evaluate runs against training qrels and generate MAP / P@10 and 11-point averaged precision/recall plots, run:
 
 ```bash
 py plot_handler.py

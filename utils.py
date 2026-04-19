@@ -1,8 +1,7 @@
 import os
 
 from eval_handler import rank_all_queries, pseudo_relevance_feedback, compute_bm25_vectors, compute_tfidf_vectors
-from file_handler import load_all_documents, dict_to_counter, query_constructor, write_results, ensure_a1_dataset, \
-    download_and_extract
+from file_handler import load_all_documents, dict_to_counter, query_constructor, write_results, download_and_extract
 
 
 def run(lang, run, train, queries_path=None, documents_list=None, output_file=None):

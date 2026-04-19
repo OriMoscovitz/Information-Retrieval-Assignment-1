@@ -4,8 +4,6 @@ import xml.etree.ElementTree as ET
 import re
 from collections import Counter
 
-import os
-
 import nltk
 from nltk import SnowballStemmer, WordNetLemmatizer
 from nltk.corpus import stopwords
@@ -20,6 +18,7 @@ tagger = Tagger.load(MORPHODITA_MODEL_PATH)
 morpho = tagger.getMorpho()
 tokenizer = tagger.newTokenizer()
 
+nltk.download('stopwords')
 stopword_en = set(stopwords.words("english"))
 
 stopword_cs = {
@@ -39,6 +38,7 @@ stopword_cs = {
 
 
 def download_and_extract():
+    print("Downloading and extracting data files...")
     subprocess.run([
         "wget",
         "--user", "npfl103",

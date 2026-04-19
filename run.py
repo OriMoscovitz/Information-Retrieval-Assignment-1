@@ -3,9 +3,7 @@ import argparse
 from utils import run
 
 parser = argparse.ArgumentParser()
-# parser.add_argument("-l", "--language", type=str, default="en", help="language of the documents", choices=["en", "cs"])
 parser.add_argument("-r", "--run", type=int, default=None, help="type of run", choices=[0, 1, 2])
-# parser.add_argument("-t", "--train", type=bool, default=True, help="if true, runs test, ow runs test", choices=[True, False])
 parser.add_argument("-q", "--queries", type=str, default=None, help="provide path to topics xml file")
 parser.add_argument("-d", "--documents_list", type=str, default=None, help="provide path to documents list")
 parser.add_argument("-o", "--output", type=str, default=None, help="path to output results file ")

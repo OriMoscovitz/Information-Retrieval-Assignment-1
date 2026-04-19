@@ -139,7 +139,7 @@ py plot_handler.py
 This reads all `.res` files from `outputs/` and produces `results_english.png` and `results_czech.png`.
 
 ### Results (English)
-![English](assignment1/results_english.png)
+![English](Information-Retrieval-Assignment-1/results_english.png)
 
 * **step 0**: Baseline (run-0)
 * **step 1**: Split on spaces, commas, punctuation, parentheses, hyphens
@@ -153,7 +153,7 @@ This reads all `.res` files from `outputs/` and produces `results_english.png` a
 * **step 9**: BM25 + PRF
 
 ### Results (Czech)
-![English](assignment1/results_czech.png)
+![Czech](Information-Retrieval-Assignment-1/results_czech.png)
 
 * **step 0**: Baseline (run-0)
 * **step 1**: Split on spaces, commas, punctuation, parentheses, hyphens
@@ -165,6 +165,11 @@ This reads all `.res` files from `outputs/` and produces `results_english.png` a
 * **step 7**: BM25
 * **step 8**: BM25 + PRF
 
+### Results baseline (run-0) English vs. Czech
+![None](Information-Retrieval-Assignment-1/11P_AP_results_0.png)
+
+### Results restrained system (run-1) English vs. Czech
+![None](Information-Retrieval-Assignment-1/11P_AP_results_1.png)
 ---
 
 ## 🗂️ System Overview

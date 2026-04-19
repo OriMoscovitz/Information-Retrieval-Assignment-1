@@ -1,7 +1,10 @@
 import os
+import subprocess
 import xml.etree.ElementTree as ET
 import re
 from collections import Counter
+
+import os
 
 import nltk
 from nltk import SnowballStemmer, WordNetLemmatizer
@@ -33,6 +36,19 @@ stopword_cs = {
     "toto", "tu", "tuto", "ty", "tý", "u",
     "už", "v", "ve", "vy", "z", "za", "ze"
 }
+
+
+def download_and_extract():
+    subprocess.run([
+        "wget",
+        "--user", "npfl103",
+        "--password", "npfl103",
+        "http://ufal.mff.cuni.cz/~pecina/courses/npfl103/data/A1.tgz"
+    ], check=True)
+
+    subprocess.run([
+        "tar", "xf", "A1.tgz"
+    ], check=True)
 
 def nltk_download(resource):
     try:

@@ -3,10 +3,10 @@ import argparse
 from utils import run
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-r", "--run", type=int, default=None, help="type of run", choices=[0, 1, 2])
-parser.add_argument("-q", "--queries", type=str, default=None, help="provide path to topics xml file")
-parser.add_argument("-d", "--documents_list", type=str, default=None, help="provide path to documents list")
-parser.add_argument("-o", "--output", type=str, default=None, help="path to output results file ")
+parser.add_argument("-r", "--run", required=True, type=int, default=None, help="type of run", choices=[0, 1])
+parser.add_argument("-q", "--queries", required=True, type=str, default=None, help="path to topics xml file")
+parser.add_argument("-d", "--documents_list", required=True, type=str, default=None, help="path to documents list")
+parser.add_argument("-o", "--output", required=True, type=str, default=None, help="path to output file ")
 
 
 # ./run -q topics.xml -d documents.lst -r run -o sample.res

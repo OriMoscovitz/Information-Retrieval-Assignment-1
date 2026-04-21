@@ -139,7 +139,7 @@ py plot_handler.py
 This reads all `.res` files from `outputs/` and produces `results_english.png` and `results_czech.png`.
 
 ### Results (English)
-![English](Information-Retrieval-Assignment-1/results_english.png)
+![English](results_english.png)
 
 * **step 0**: Baseline (run-0)
 * **step 1**: Split on spaces, commas, punctuation, parentheses, hyphens

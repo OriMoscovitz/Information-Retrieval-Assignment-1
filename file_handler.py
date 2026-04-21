@@ -1,5 +1,4 @@
 import os
-import subprocess
 import xml.etree.ElementTree as ET
 import re
 from collections import Counter
@@ -18,7 +17,16 @@ tagger = Tagger.load(MORPHODITA_MODEL_PATH)
 morpho = tagger.getMorpho()
 tokenizer = tagger.newTokenizer()
 
-nltk.download('stopwords')
+def nltk_download(resource):
+    try:
+        nltk.data.find(resource)
+    except LookupError:
+        nltk.download(resource, quiet=True)
+
+nltk_download("wordnet")
+nltk_download("omw-1.4")
+lemmatizer_en = WordNetLemmatizer()
+
 stopword_en = set(stopwords.words("english"))
 
 stopword_cs = {
@@ -35,26 +43,6 @@ stopword_cs = {
     "toto", "tu", "tuto", "ty", "tý", "u",
     "už", "v", "ve", "vy", "z", "za", "ze"
 }
-
-
-def download_and_extract():
-    print("Downloading and extracting data files...")
-    subprocess.run([
-        "wget",
-        "--user", "npfl103",
-        "--password", "npfl103",
-        "http://ufal.mff.cuni.cz/~pecina/courses/npfl103/data/A1.tgz"
-    ], check=True)
-
-    subprocess.run([
-        "tar", "xf", "A1.tgz"
-    ], check=True)
-
-def nltk_download(resource):
-    try:
-        nltk.data.find(resource)
-    except LookupError:
-        nltk.download(resource, quiet=True)
 
 def read_documents_list(lst_name=None):
     lst_path = os.path.join("A1", lst_name)
@@ -156,10 +144,7 @@ def stem_tokens(tokens, language):
     return tokens
 
 def lemmatize_en(tokens):
-    nltk_download("wordnet")
-    nltk_download("omw-1.4")
-    lemmatizer = WordNetLemmatizer()
-    return [lemmatizer.lemmatize(t) for t in tokens]
+    return [lemmatizer_en.lemmatize(t) for t in tokens]
 
 def preprocess_text(text, run, lang):
     if not text:
@@ -182,13 +167,13 @@ def preprocess_text(text, run, lang):
         if lang == "en":
             tokens = lemmatize_en(tokens)
 
-        # equivalence classes used only for Czech because it didn't improve much for English. (improved P_10 but hurt MAP)
-        if lang == "cs":
-            tokens = normalize_equivalence_classes(tokens, lang)
-
         # stemming for en only
         if lang == "en":
             tokens = stem_tokens(tokens, lang)
+
+        # equivalence classes used only for Czech because it didn't improve much for English. (improved P_10 but hurt MAP)
+        if lang == "cs":
+            tokens = normalize_equivalence_classes(tokens, lang)
 
         return tokens
 

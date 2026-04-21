@@ -153,7 +153,7 @@ This reads all `.res` files from `outputs/` and produces `results_english.png` a
 * **step 9**: BM25 + PRF
 
 ### Results (Czech)
-![Czech](Information-Retrieval-Assignment-1/results_czech.png)
+![Czech](results_czech.png)
 
 * **step 0**: Baseline (run-0)
 * **step 1**: Split on spaces, commas, punctuation, parentheses, hyphens
@@ -166,10 +166,10 @@ This reads all `.res` files from `outputs/` and produces `results_english.png` a
 * **step 8**: BM25 + PRF
 
 ### Results baseline (run-0) English vs. Czech
-![None](Information-Retrieval-Assignment-1/11P_AP_results_0.png)
+![None](11P_AP_results_0.png)
 
 ### Results restrained system (run-1) English vs. Czech
-![None](Information-Retrieval-Assignment-1/11P_AP_results_1.png)
+![None](11P_AP_results_1.png)
 ---
 
 ## 🗂️ System Overview
